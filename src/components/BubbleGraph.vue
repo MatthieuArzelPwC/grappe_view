@@ -35,7 +35,7 @@ export default {
 
   methods: {
     renderGraph() {
-      const { data, maxRadius, width, height, size, numberOfColumns } =
+      const { data, width, height, size, numberOfColumns } =
         utils.getGraphParameters(
           this.bubbleGraphProps,
           this.$refs.container.clientWidth
@@ -87,13 +87,14 @@ export default {
       utils.addTooltip(globalContainer, graphName, bubble);
 
       // Features of the forces applied to the nodes:
-      // const repart = d3
-      //   .scalePow()
-      //   .exponent(1)
-      //   .domain([0, data.length])
-      //   .range([0, height]);
-
-      // let acc = 0;
+      const spaceRepartition = d3
+        .scalePow()
+        .exponent(0.6)
+        .domain([0, height])
+        .range([0, height]);
+      console.log("q1", spaceRepartition(0.25 * height));
+      console.log("q2", spaceRepartition(0.5 * height));
+      console.log("q3", spaceRepartition(0.75 * height));
 
       var simulation = d3
         .forceSimulation()
@@ -104,23 +105,17 @@ export default {
             .strength(0.1)
             .x(width / 2)
         )
-        // .force(
-        //   "y",
-        //   d3
-        //     .forceY()
-        //     .strength((d) => size(d.value) / maxRadius)
-        //     .y(0)
-        // )
         .force(
           "y",
           d3
             .forceY()
-            .strength(0.1)
-            .y(
-              (d) =>
+            .strength(0.5)
+            .y((d) =>
+              spaceRepartition(
                 (height * d.index) /
-                numberOfColumns /
-                (data.length / numberOfColumns)
+                  numberOfColumns /
+                  (data.length / numberOfColumns)
+              )
             )
         )
         // .force("charge", d3.forceManyBody().strength(10)) // Nodes are attracted one each other of scale * 1000000 is > 0

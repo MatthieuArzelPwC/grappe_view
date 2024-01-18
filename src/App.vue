@@ -340,12 +340,12 @@ const props = (d) => {
   return {
     data: d.sort((a, b) => b.value - a.value),
     graphName: "graph",
-    numberOfColumns: 2,
-    useLogarithmicScale: false,
-    LogarithmicFactor: 0.2,
+    numberOfColumns: 1,
+    useLogarithmicScale: true,
+    LogarithmicFactor: 0.3,
     maxRadius: 0,
     minRadius: 0,
-    height: 0,
+    height: 250,
   };
 };
 const props1 = props(data1);

@@ -35,8 +35,6 @@ export const getGraphParameters = (graphProps, containerWidth) => {
     });
   return {
     data: newData,
-    maxRadius,
-    minRadius,
     width,
     height,
     size,
