@@ -23,6 +23,13 @@ export default {
         defaultValue: 2,
       },
     },
+    isScoreGraph: {
+      label: {
+        en: "Use score for graph hierarchies",
+      },
+      type: "OnOff",
+      defaultValue: false,
+    },
     useLogarithmicScale: {
       label: {
         en: "Display value on logarithmic scale",

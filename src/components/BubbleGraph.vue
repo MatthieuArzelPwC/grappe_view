@@ -20,6 +20,7 @@ export default {
       maxRadius: Number,
       minRadius: Number,
       height: Number,
+      isScoreGraph: Boolean,
     },
   },
   setup(props) {
@@ -87,14 +88,9 @@ export default {
       utils.addTooltip(globalContainer, graphName, bubble);
 
       // Features of the forces applied to the nodes:
-      const spaceRepartition = d3
-        .scalePow()
-        .exponent(0.6)
-        .domain([0, height])
-        .range([0, height]);
-      console.log("q1", spaceRepartition(0.25 * height));
-      console.log("q2", spaceRepartition(0.5 * height));
-      console.log("q3", spaceRepartition(0.75 * height));
+      const spaceRepartition = this.bubbleGraphProps.isScoreGraph
+        ? d3.scaleLinear().domain([0, height]).range([0, height])
+        : d3.scalePow().exponent(0.6).domain([0, height]).range([0, height]);
 
       var simulation = d3
         .forceSimulation()

@@ -26,13 +26,7 @@ export const getGraphParameters = (graphProps, containerWidth) => {
     graphProps.height,
     containerWidth
   );
-  let acc = -1;
-  const newData = data
-    .sort((a, b) => b.value - a.value)
-    .map((d) => {
-      acc += 1;
-      return { ...d, index: acc };
-    });
+  const newData = dataSorter(data, graphProps.isScoreGraph);
   return {
     data: newData,
     width,
@@ -71,6 +65,34 @@ const getSvgDimension = (data, sizeScale, requiredHeight, containerWidth) => {
       : (circleArea * 3) / width;
   console.log(height);
   return { width, height };
+};
+
+const dataSorter = (data, isScoreGraph) => {
+  let acc = -1;
+  if (isScoreGraph) {
+    return data
+      .sort((a, b) => scoreComparison(a, b))
+      .map((d) => {
+        acc += 1;
+        return { ...d, index: acc };
+      });
+  }
+  return data
+    .sort((a, b) => b.value - a.value)
+    .map((d) => {
+      acc += 1;
+      return { ...d, index: acc };
+    });
+};
+
+const scoreComparison = (a, b) => {
+  if (a === null) {
+    return 1;
+  }
+  if (b === null) {
+    return -1;
+  }
+  return b.score - a.score;
 };
 
 export const addBubbleText = (node, size, width, height) => {
