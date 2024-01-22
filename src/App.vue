@@ -1,7 +1,7 @@
 <template>
   <div class="content">
-    <BubbleGraph :bubbleGraphProps="props1" />
     <BubbleGraph :bubbleGraphProps="props2" />
+    <BubbleGraph :bubbleGraphProps="props1" />
     <BubbleGraph :bubbleGraphProps="props3" />
     <BubbleGraph :bubbleGraphProps="props4" />
     <BubbleGraph :bubbleGraphProps="props5" />
@@ -26,46 +26,55 @@ const data2 = [
     label: "Iran",
     value: 100,
     score: 4,
+    tooltip: "Iran",
   },
   {
     label: "UK",
     value: 0,
     score: 10,
+    tooltip: "UK",
   },
   {
     label: "USA",
     value: 2,
     score: 10,
+    tooltip: "USA",
   },
   {
     label: "France",
     value: 2,
     score: 10,
+    tooltip: `France \n France`,
   },
   {
     label: "Ireland",
     value: 2,
     score: 10,
+    tooltip: "Ireland",
   },
   {
     label: "Germany",
     value: 2,
     score: 1,
+    tooltip: "Germ",
   },
   {
     label: "Enies lobby",
     value: 2,
     score: 1,
+    tooltip: "Lobby",
   },
   {
     label: "Switzerland",
     value: 2,
     score: 1,
+    tooltip: "Suisse",
   },
   {
     label: "Sweden",
     value: 2,
     score: 1,
+    tooltip: "Sweden",
   },
 ];
 

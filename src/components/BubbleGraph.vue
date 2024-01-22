@@ -12,6 +12,7 @@ export default {
           value: Number,
           label: String,
           score: Number | null,
+          tooltip: String,
         },
       ],
       graphName: String,

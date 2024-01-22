@@ -158,18 +158,17 @@ export const addTooltip = (globalContainer, graphName, bubble) => {
     .style("position", "absolute")
     .style("visibility", "hidden")
     .style("border-radius", "5px")
-    .style("padding", "4px")
+    .style("padding", "8px")
     .style("background-color", "black")
     .style("color", "white")
     .style("opacity", "0.6")
     .style("z-index", "10")
     .style("font-size", "16pt");
 
-  const tooltipNameText = tooltip.append("p").style("margin-top", "0px");
-  const tooltipCoverageText = tooltip.append("p");
-  const tooltipWeightingText = tooltip
-    .append("p")
-    .style("margin-bottom", "0px");
+  const tooltipText = tooltip
+    .append("div")
+    .style("margin", "0px")
+    .style("white-space", "pre-line");
 
   bubble
     .on("mouseover", () => {
@@ -178,9 +177,7 @@ export const addTooltip = (globalContainer, graphName, bubble) => {
     .on("mousemove", (event, d) => {
       const yDelta = globalContainer.getBoundingClientRect().y;
       const xDelta = globalContainer.getBoundingClientRect().x;
-      tooltipNameText.text(`Name : ${d.label}`);
-      tooltipCoverageText.text(`coverage: ${d.score}`);
-      tooltipWeightingText.text(`weighting: ${d.value}`);
+      tooltipText.text(d.tooltip);
       return tooltip
         .style("top", event.pageY - yDelta - window.scrollY + 10 + "px")
         .style("left", event.pageX - xDelta + 10 + "px");
