@@ -11,6 +11,7 @@ export default {
         {
           value: Number,
           label: String,
+          score: Number | null,
         },
       ],
       graphName: String,
@@ -21,6 +22,9 @@ export default {
       minRadius: Number,
       height: Number,
       isScoreGraph: Boolean,
+      highScoreColor: String,
+      mediumScoreColor: String,
+      lowScoreColor: String,
     },
   },
   setup(props) {
@@ -52,10 +56,15 @@ export default {
         .attr("width", width)
         .attr("height", height);
 
-      console.log(data);
-
       // Initialize the circle: all located at the center of the svg area
       let node = svg.append("g").selectAll("circle").data(data).enter();
+
+      const colorScale = utils.getColorScale(
+        data,
+        this.bubbleGraphProps.highScoreColor,
+        this.bubbleGraphProps.mediumScoreColor,
+        this.bubbleGraphProps.lowScoreColor
+      );
 
       let bubble = node
         .append("circle")
@@ -71,7 +80,13 @@ export default {
             (height * Math.round(d.index / numberOfColumns)) /
             (data.length / numberOfColumns)
         )
-        .style("fill", "#D1D1D1")
+        .style("fill", (d) => {
+          return utils.getCircleColor(
+            d.score,
+            colorScale,
+            this.bubbleGraphProps.isScoreGraph
+          );
+        })
         .style("fill-opacity", 1)
         .call(
           d3
@@ -156,6 +171,7 @@ export default {
             ));
           });
       });
+
       // What happens when a circle is dragged?
       function dragstarted(d) {
         if (!d3.event.active) simulation.alphaTarget(0.3).restart();

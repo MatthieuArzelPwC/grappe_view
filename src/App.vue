@@ -347,6 +347,9 @@ const props = (d) => {
     minRadius: 0,
     height: 250,
     isScoreGraph: true,
+    highScoreColor: "#4CAF50",
+    mediumScoreColor: "#FFD700",
+    lowScoreColor: "#FF6347",
   };
 };
 const props1 = props(data1);

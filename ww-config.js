@@ -11,6 +11,7 @@ export default {
       },
       type: "Text",
       required: true,
+      bindable: true,
     },
     numberOfColumns: {
       label: {
@@ -22,6 +23,7 @@ export default {
         max: 10,
         defaultValue: 2,
       },
+      bindable: true,
     },
     isScoreGraph: {
       label: {
@@ -29,6 +31,7 @@ export default {
       },
       type: "OnOff",
       defaultValue: false,
+      bindable: true,
     },
     useLogarithmicScale: {
       label: {
@@ -36,6 +39,7 @@ export default {
       },
       type: "OnOff",
       defaultValue: false,
+      bindable: true,
     },
     LogarithmicFactor: {
       label: {
@@ -48,6 +52,7 @@ export default {
         step: 0.1,
         defaultValue: 0.5,
       },
+      bindable: true,
     },
     minRadius: {
       label: {
@@ -58,8 +63,9 @@ export default {
         min: 5,
         max: 100,
         step: 5,
-        defaultValue: 5,
+        defaultValue: 0,
       },
+      bindable: true,
     },
     maxRadius: {
       label: {
@@ -70,8 +76,9 @@ export default {
         min: 50,
         max: 1000,
         step: 10,
-        defaultValue: 50,
+        defaultValue: 0,
       },
+      bindable: true,
     },
     height: {
       label: {
@@ -84,6 +91,37 @@ export default {
         step: 10,
         defaultValue: 0,
       },
+      bindable: true,
+    },
+    highScoreColor: {
+      label: {
+        en: "Color of the bubble with the highest score",
+      },
+      type: "Color",
+      options: {
+        defaultValue: "#4CAF50",
+      },
+      bindable: true,
+    },
+    mediumScoreColor: {
+      label: {
+        en: "Color of the bubble with the medium score",
+      },
+      type: "Color",
+      options: {
+        defaultValue: "#FFD700",
+      },
+      bindable: true,
+    },
+    lowScoreColor: {
+      label: {
+        en: "Color of the bubble with the lowest score",
+      },
+      type: "Color",
+      options: {
+        defaultValue: "#FF6347",
+      },
+      bindable: true,
     },
     data: {
       label: {

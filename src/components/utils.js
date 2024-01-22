@@ -63,7 +63,6 @@ const getSvgDimension = (data, sizeScale, requiredHeight, containerWidth) => {
     requiredHeight !== 0
       ? (requiredHeight * width) / 100
       : (circleArea * 3) / width;
-  console.log(height);
   return { width, height };
 };
 
@@ -93,6 +92,21 @@ const scoreComparison = (a, b) => {
     return -1;
   }
   return b.score - a.score;
+};
+
+export const getColorScale = (data, highColor, mediumColor, lowColor) => {
+  const maxScore = Math.max(...data.map((x) => x.score));
+  const minScore = Math.min(...data.map((x) => x.score));
+
+  const colorScale = d3
+    .scaleLinear()
+    .domain([minScore, (maxScore + minScore) / 2, maxScore])
+    .range([lowColor, mediumColor, highColor]);
+  return colorScale;
+};
+
+export const getCircleColor = (score, colorScale, isScoreGraph) => {
+  return isScoreGraph & (score !== null) ? colorScale(score) : "#D1D1D1";
 };
 
 export const addBubbleText = (node, size, width, height) => {
