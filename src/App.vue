@@ -1,5 +1,6 @@
 <template>
-  <div class="content">
+  <div :key="acc" class="content">
+    <button class="button" :onClick="render"></button>
     <BubbleGraph :bubbleGraphProps="props2" />
     <BubbleGraph :bubbleGraphProps="props1" />
     <BubbleGraph :bubbleGraphProps="props3" />
@@ -11,6 +12,7 @@
 
 <script>
 import BubbleGraph from "./components/BubbleGraph.vue";
+import { ref } from "vue";
 
 export default {
   name: "App",
@@ -355,7 +357,7 @@ const props = (d) => {
     maxRadius: 0,
     minRadius: 0,
     height: 250,
-    isScoreGraph: false,
+    isScoreGraph: true,
     highScoreColor: "#4CAF50",
     mediumScoreColor: "#FFD700",
     lowScoreColor: "#FF6347",
@@ -368,6 +370,10 @@ const props3 = props(data3);
 const props4 = props(data4);
 const props5 = props(data5);
 const props6 = props(data6);
+const acc = ref(0);
+const render = () => {
+  acc.value += 1;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -379,5 +385,9 @@ const props6 = props(data6);
 .content {
   width: 200px;
   height: 200px;
+}
+.button {
+  width: 100px;
+  height: 50px;
 }
 </style>

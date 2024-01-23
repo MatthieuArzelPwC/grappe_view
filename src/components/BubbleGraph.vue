@@ -35,8 +35,11 @@ export default {
     return { graphId };
   },
   watch: {
-    bubbleGraphProps() {
-      this.renderGraph();
+    $bubbleGraphProps: {
+      handler: function () {
+        this.renderGraph();
+      },
+      deep: true,
     },
   },
 
