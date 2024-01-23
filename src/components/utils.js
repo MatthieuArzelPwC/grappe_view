@@ -61,7 +61,7 @@ const getSvgDimension = (
   minRadius
 ) => {
   const width = containerWidth;
-  const height = containerHeight;
+  const height = containerHeight ? containerHeight : containerWidth;
   let minDichotomyRadius = minRadius;
   let maxDichotomyRadius = Math.min(width, height) * 2;
   const rectangleArea = (width * height) / 2;
