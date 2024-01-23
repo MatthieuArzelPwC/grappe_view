@@ -66,31 +66,6 @@ export default {
       // Initialize the circle: all located at the center of the SVG area
       let node = svg.append("g").selectAll("circle").data(data).enter();
 
-      let bubble = d3Utils.addCircles(
-        node,
-        width,
-        height,
-        data,
-        sizeScale,
-        simulation,
-        {
-          high: this.bubbleGraphProps.highScoreColor,
-          medium: this.bubbleGraphProps.mediumScoreColor,
-          low: this.bubbleGraphProps.lowScoreColor,
-        },
-        this.bubbleGraphProps.isScoreGraph
-      );
-
-      let bubbleText = d3Utils.addBubbleText(
-        node,
-        sizeScale,
-        width,
-        height,
-        this.bubbleGraphProps.textColor
-      );
-
-      d3Utils.addTooltip(this.$refs.container, graphName, bubble);
-
       // Features of the forces applied to the nodes
       let simulation = d3
         .forceSimulation()
@@ -117,6 +92,31 @@ export default {
             .radius((d) => sizeScale(d.value))
             .iterations(1)
         );
+
+      let bubble = d3Utils.addCircles(
+        node,
+        width,
+        height,
+        data,
+        sizeScale,
+        simulation,
+        {
+          high: this.bubbleGraphProps.highScoreColor,
+          medium: this.bubbleGraphProps.mediumScoreColor,
+          low: this.bubbleGraphProps.lowScoreColor,
+        },
+        this.bubbleGraphProps.isScoreGraph
+      );
+
+      let bubbleText = d3Utils.addBubbleText(
+        node,
+        sizeScale,
+        width,
+        height,
+        this.bubbleGraphProps.textColor
+      );
+
+      d3Utils.addTooltip(this.$refs.container, graphName, bubble);
 
       //Run the simulation within the svg border
       simulation.nodes(data).on("tick", () => {
