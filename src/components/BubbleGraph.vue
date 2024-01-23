@@ -1,6 +1,7 @@
 <script>
 import * as d3 from "d3";
-import * as utils from "./utils.js";
+import { getGraphParameters } from "./init.js";
+import * as d3Utils from "./d3Utils.js";
 
 export default {
   name: "BubbleGraph",
@@ -45,10 +46,12 @@ export default {
 
   methods: {
     renderGraph() {
-      const { data, width, height, size } = utils.getGraphParameters(
-        this.bubbleGraphProps,
-        this.$refs.container
-      );
+      const {
+        data,
+        width,
+        height,
+        size: sizeScale,
+      } = getGraphParameters(this.bubbleGraphProps, this.$refs.container);
 
       const graphName =
         "#my_dataviz" + this.bubbleGraphProps.graphName.replaceAll(" ", "_");
@@ -63,49 +66,32 @@ export default {
       // Initialize the circle: all located at the center of the SVG area
       let node = svg.append("g").selectAll("circle").data(data).enter();
 
-      const colorScale = utils.getColorScale(
+      let bubble = d3Utils.addCircles(
+        node,
+        width,
+        height,
         data,
-        this.bubbleGraphProps.highScoreColor,
-        this.bubbleGraphProps.mediumScoreColor,
-        this.bubbleGraphProps.lowScoreColor
+        sizeScale,
+        simulation,
+        {
+          high: this.bubbleGraphProps.highScoreColor,
+          medium: this.bubbleGraphProps.mediumScoreColor,
+          low: this.bubbleGraphProps.lowScoreColor,
+        }
       );
 
-      let bubble = node
-        .append("circle")
-        .attr("class", "node")
-        .attr("r", (d) => size(d.value))
-        .attr("cx", width / 2)
-        .attr("cy", height / 2)
-        .style("fill", (d) =>
-          utils.getCircleColor(
-            d.score,
-            colorScale,
-            this.bubbleGraphProps.isScoreGraph
-          )
-        )
-        .style("fill-opacity", 1)
-        .call(
-          d3
-            .drag()
-            .on("start", dragstarted)
-            .on("drag", dragged)
-            .on("end", dragended)
-        );
-
-      let bubbleText = utils.addBubbleText(
+      let bubbleText = d3Utils.addBubbleText(
         node,
-        size,
+        sizeScale,
         width,
         height,
         this.bubbleGraphProps.textColor
       );
 
-      const globalContainer = this.$refs.container;
-
-      utils.addTooltip(globalContainer, graphName, bubble);
+      d3Utils.addTooltip(this.$refs.container, graphName, bubble);
 
       // Features of the forces applied to the nodes
-      var simulation = d3
+      let simulation = d3
         .forceSimulation()
         .force(
           "x",
@@ -119,7 +105,7 @@ export default {
           d3
             .forceY()
             .strength(0.5)
-            .y((d) => (d.totalPreviousRadius - size(d.value) / 2) * 0.8)
+            .y((d) => (d.totalPreviousRadius - sizeScale(d.value) / 2) * 0.8)
         )
         .force("charge", d3.forceManyBody().strength(0.1))
         .force(
@@ -127,7 +113,7 @@ export default {
           d3
             .forceCollide()
             .strength(1)
-            .radius((d) => size(d.value))
+            .radius((d) => sizeScale(d.value))
             .iterations(1)
         );
 
@@ -138,44 +124,32 @@ export default {
             "cx",
             (d) =>
               (d.x = Math.max(
-                size(d.value),
-                Math.min(width - size(d.value), d.x)
+                sizeScale(d.value),
+                Math.min(width - sizeScale(d.value), d.x)
               ))
           )
           .attr(
             "cy",
             (d) =>
               (d.y = Math.max(
-                size(d.value),
-                Math.min(height - size(d.value), d.y)
+                sizeScale(d.value),
+                Math.min(height - sizeScale(d.value), d.y)
               ))
           );
         bubbleText
           .attr("x", (d) =>
-            Math.max(size(d.value), Math.min(width - size(d.value), d.x))
+            Math.max(
+              sizeScale(d.value),
+              Math.min(width - sizeScale(d.value), d.x)
+            )
           )
           .attr("y", (d) =>
-            Math.max(size(d.value), Math.min(height - size(d.value), d.y))
+            Math.max(
+              sizeScale(d.value),
+              Math.min(height - sizeScale(d.value), d.y)
+            )
           );
       });
-
-      // What happens when a circle is dragged?
-      function dragstarted(d) {
-        if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-        d.fx = d.x;
-        d.fy = d.y;
-      }
-
-      function dragged(d) {
-        d.fx = d3.event.x;
-        d.fy = d3.event.y;
-      }
-
-      function dragended(d) {
-        if (!d3.event.active) simulation.alphaTarget(0.3);
-        d.fx = null;
-        d.fy = null;
-      }
     },
   },
   mounted() {
