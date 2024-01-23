@@ -80,19 +80,6 @@ export default {
       },
       bindable: true,
     },
-    height: {
-      label: {
-        en: "Height of the graph (% of the width)",
-      },
-      type: "Number",
-      options: {
-        min: 0,
-        max: 500,
-        step: 10,
-        defaultValue: 0,
-      },
-      bindable: true,
-    },
     highScoreColor: {
       label: {
         en: "Color of the bubble with the highest score",
@@ -162,6 +149,18 @@ export default {
               type: "Number",
               label: {
                 en: "value",
+              },
+            },
+            score: {
+              type: "Number",
+              label: {
+                en: "score",
+              },
+            },
+            tooltip: {
+              type: "Number",
+              label: {
+                en: "tooltip",
               },
             },
           },

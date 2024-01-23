@@ -2,7 +2,7 @@
   <BubbleGraph :key="content.id" :bubbleGraphProps="content" />
   <p>Graph Name : {{ content.graphName }}</p>
   <!-- This line force weweb to load data -->
-  <p class="invisible">First element name : {{ content.data[0].label }}</p>
+  <p>First element name : {{ content.data[0].label }}</p>
 </template>
 
 <script>
