@@ -137,7 +137,7 @@ export default {
       label: {
         en: "id of the graph",
       },
-      type: "OnOff",
+      type: "uuid",
       bindable: true,
     },
     data: {
