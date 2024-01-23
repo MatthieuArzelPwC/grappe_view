@@ -1,16 +1,20 @@
 import * as d3 from "d3";
 
-export const getGraphParameters = (graphProps, containerWidth) => {
+export const getGraphParameters = (graphProps, container) => {
   const data = graphProps.data;
 
   const numberOfColumns = graphProps.numberOfColumns;
 
-  const maxRadius =
-    graphProps.maxRadius === 0
-      ? containerWidth / (2 * numberOfColumns)
-      : graphProps.maxRadius;
-
   const minRadius = graphProps.minRadius === 0 ? 5 : graphProps.minRadius;
+
+  const { width, height, maxRadius } = getSvgDimension(
+    data,
+    container.clientHeight,
+    container.clientWidth,
+    graphProps.useLogarithmicScale,
+    graphProps.LogarithmicFactor,
+    minRadius
+  );
 
   const size = getSizeScale(
     graphProps.useLogarithmicScale,
@@ -20,13 +24,8 @@ export const getGraphParameters = (graphProps, containerWidth) => {
     minRadius
   );
 
-  const { width, height } = getSvgDimension(
-    data,
-    size,
-    graphProps.height,
-    containerWidth
-  );
   const newData = dataSorter(data, graphProps.isScoreGraph);
+
   return {
     data: newData,
     width,
@@ -53,17 +52,64 @@ const getSizeScale = (
     : d3.scaleLinear().domain([0, maxValue]).range([minRadius, maxRadius]);
 };
 
-const getSvgDimension = (data, sizeScale, requiredHeight, containerWidth) => {
+const getSvgDimension = (
+  data,
+  containerHeight,
+  containerWidth,
+  useLogarithmicScale,
+  LogarithmicFactor,
+  minRadius
+) => {
   const width = containerWidth;
-  const circleArea = data.reduce(
-    (acc, d) => acc + sizeScale(d.value) * sizeScale(d.value) * 3.14,
+  const height = containerHeight;
+  let minDichotomyRadius = minRadius;
+  let maxDichotomyRadius = Math.min(width, height) * 2;
+  const rectangleArea = (width * height) / 2;
+  let maxRadius = (minDichotomyRadius + maxDichotomyRadius) / 2;
+  let circlesArea = getTotalCirclesArea(
+    data,
+    maxRadius,
+    useLogarithmicScale,
+    LogarithmicFactor,
+    minRadius
+  );
+  while (Math.abs(circlesArea - rectangleArea) > 0.1) {
+    if (circlesArea - rectangleArea > 0) {
+      maxDichotomyRadius = maxRadius;
+      maxRadius = (minDichotomyRadius + maxDichotomyRadius) / 2;
+    } else {
+      minDichotomyRadius = maxRadius;
+      maxRadius = (minDichotomyRadius + maxDichotomyRadius) / 2;
+    }
+    circlesArea = getTotalCirclesArea(
+      data,
+      maxRadius,
+      useLogarithmicScale,
+      LogarithmicFactor,
+      minRadius
+    );
+  }
+  return { width, height, maxRadius };
+};
+
+const getTotalCirclesArea = (
+  data,
+  maxRadius,
+  useLogarithmicScale,
+  LogarithmicFactor,
+  minRadius
+) => {
+  const sizeScale = getSizeScale(
+    useLogarithmicScale,
+    LogarithmicFactor,
+    data,
+    maxRadius,
+    minRadius
+  );
+  return data.reduce(
+    (acc, x) => acc + 3.14 * sizeScale(x.value) * sizeScale(x.value),
     0
   );
-  const height =
-    requiredHeight !== 0
-      ? (requiredHeight * width) / 100
-      : (circleArea * 3) / width;
-  return { width, height };
 };
 
 const dataSorter = (data, isScoreGraph) => {
@@ -109,7 +155,7 @@ export const getCircleColor = (score, colorScale, isScoreGraph) => {
   return isScoreGraph & (score !== null) ? colorScale(score) : "#D1D1D1";
 };
 
-export const addBubbleText = (node, size, width, height) => {
+export const addBubbleText = (node, size, width, height, textColor) => {
   return node
     .append("text")
     .text((d) => d.label)
@@ -120,7 +166,7 @@ export const addBubbleText = (node, size, width, height) => {
     .style("font-weight", "bold")
     .style("font-family", "Helvetica Neue")
     .style("font-size", (d) => `${getFontSize(d.value, size)}pt`)
-    .style("fill", "black")
+    .style("fill", textColor)
     .each(function (d) {
       svgTextEllipsis(this, size(d.value) * 2);
     });

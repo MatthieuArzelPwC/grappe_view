@@ -26,6 +26,7 @@ export default {
       highScoreColor: String,
       mediumScoreColor: String,
       lowScoreColor: String,
+      textColor: String,
     },
   },
   setup(props) {
@@ -42,10 +43,7 @@ export default {
   methods: {
     renderGraph() {
       const { data, width, height, size, numberOfColumns } =
-        utils.getGraphParameters(
-          this.bubbleGraphProps,
-          this.$refs.container.clientWidth
-        );
+        utils.getGraphParameters(this.bubbleGraphProps, this.$refs.container);
 
       const graphName =
         "#my_dataviz" + this.bubbleGraphProps.graphName.replaceAll(" ", "_");
@@ -97,7 +95,13 @@ export default {
             .on("end", dragended)
         );
 
-      let bubbleText = utils.addBubbleText(node, size, width, height);
+      let bubbleText = utils.addBubbleText(
+        node,
+        size,
+        width,
+        height,
+        this.bubbleGraphProps.textColor
+      );
 
       const globalContainer = this.$refs.container;
 
@@ -130,7 +134,7 @@ export default {
               )
             )
         )
-        // .force("charge", d3.forceManyBody().strength(10)) // Nodes are attracted one each other of scale * 1000000 is > 0
+        .force("charge", d3.forceManyBody().strength(0.1)) // Nodes are attracted one each other
         .force(
           "collide",
           d3
@@ -207,6 +211,7 @@ export default {
   display: flex;
   justify-content: center;
   flex-grow: 1;
+  height: 100%;
 }
 
 .heavy {

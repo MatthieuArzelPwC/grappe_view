@@ -123,6 +123,16 @@ export default {
       },
       bindable: true,
     },
+    textColor: {
+      label: {
+        en: "Color of the text of the bubble",
+      },
+      type: "Color",
+      options: {
+        defaultValue: "#000000",
+      },
+      bindable: true,
+    },
     data: {
       label: {
         en: "Data",

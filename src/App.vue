@@ -359,6 +359,7 @@ const props = (d) => {
     highScoreColor: "#4CAF50",
     mediumScoreColor: "#FFD700",
     lowScoreColor: "#FF6347",
+    textColor: "#000000",
   };
 };
 const props1 = props(data1);
@@ -376,6 +377,7 @@ const props6 = props(data6);
   }
 }
 .content {
-  width: 1000px;
+  width: 200px;
+  height: 200px;
 }
 </style>
