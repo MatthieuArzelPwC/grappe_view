@@ -36,9 +36,8 @@ export default {
   },
   watch: {
     bubbleGraphProps: {
-      handler: function (value) {
+      handler: function () {
         this.renderGraph();
-        console.log("reload", value);
       },
       deep: true,
     },
