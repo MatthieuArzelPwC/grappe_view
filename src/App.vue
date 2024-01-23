@@ -1,5 +1,5 @@
 <template>
-  <div :key="acc" class="content">
+  <div class="content">
     <button class="button" :onClick="render"></button>
     <BubbleGraph :bubbleGraphProps="props2" />
     <BubbleGraph :bubbleGraphProps="props1" />
@@ -347,10 +347,12 @@ const data6 = [
     score: 62,
   },
 ];
+const acc = ref(0);
 const props = (d) => {
+  acc.value += 1;
   return {
     data: d.sort((a, b) => b.value - a.value),
-    graphName: "graph",
+    graphName: "graph" + acc.value,
     numberOfColumns: 1,
     useLogarithmicScale: true,
     LogarithmicFactor: 0.3,
@@ -371,9 +373,7 @@ const props4 = props(data4);
 const props5 = props(data5);
 const props6 = props(data6);
 const props1 = ref(props(data1));
-const acc = ref(0);
 const render = () => {
-  // acc.value += 1;
   props1.value = props(data2);
 };
 </script>
