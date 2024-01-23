@@ -7,22 +7,10 @@ export default {
   properties: {
     graphName: {
       label: {
-        en: "Name",
+        en: "Graph name (it is required for the graph to work properly and it should be different from other graph)",
       },
       type: "Text",
       required: true,
-      bindable: true,
-    },
-    numberOfColumns: {
-      label: {
-        en: "Number of Columns",
-      },
-      type: "Number",
-      options: {
-        min: 1,
-        max: 10,
-        defaultValue: 2,
-      },
       bindable: true,
     },
     isScoreGraph: {
