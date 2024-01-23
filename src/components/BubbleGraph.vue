@@ -44,7 +44,8 @@ export default {
     renderGraph() {
       const { data, width, height, size, numberOfColumns } =
         utils.getGraphParameters(this.bubbleGraphProps, this.$refs.container);
-
+      // numberOfColumns is not use for the moment
+      numberOfColumns;
       const graphName =
         "#my_dataviz" + this.bubbleGraphProps.graphName.replaceAll(" ", "_");
 
@@ -69,16 +70,8 @@ export default {
         .append("circle")
         .attr("class", "node")
         .attr("r", (d) => size(d.value))
-        .attr(
-          "cx",
-          (d) => (width * (d.index % numberOfColumns)) / numberOfColumns
-        )
-        .attr(
-          "cy",
-          (d) =>
-            (height * Math.round(d.index / numberOfColumns)) /
-            (data.length / numberOfColumns)
-        )
+        .attr("cx", width / 2)
+        .attr("cy", height / 2)
         .style("fill", (d) => {
           return utils.getCircleColor(
             d.score,
@@ -108,10 +101,14 @@ export default {
       utils.addTooltip(globalContainer, graphName, bubble);
 
       // Features of the forces applied to the nodes:
+      console.log(size(data[0].label));
       const spaceRepartition = this.bubbleGraphProps.isScoreGraph
-        ? d3.scaleLinear().domain([0, height]).range([0, height])
+        ? d3
+            .scaleLinear()
+            .domain([0, data[data.length - 1].index])
+            .range([0, height])
         : d3.scalePow().exponent(0.6).domain([0, height]).range([0, height]);
-
+      spaceRepartition;
       var simulation = d3
         .forceSimulation()
         .force(
@@ -126,13 +123,9 @@ export default {
           d3
             .forceY()
             .strength(0.5)
-            .y((d) =>
-              spaceRepartition(
-                (height * d.index) /
-                  numberOfColumns /
-                  (data.length / numberOfColumns)
-              )
-            )
+            .y((d) => {
+              return (d.totalPreviousRadius - size(d.value) / 2) * 0.8;
+            })
         )
         .force("charge", d3.forceManyBody().strength(0.1)) // Nodes are attracted one each other
         .force(

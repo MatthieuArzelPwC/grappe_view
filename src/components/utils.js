@@ -24,7 +24,7 @@ export const getGraphParameters = (graphProps, container) => {
     minRadius
   );
 
-  const newData = dataSorter(data, graphProps.isScoreGraph);
+  const newData = dataSorter(data, graphProps.isScoreGraph, size);
 
   return {
     data: newData,
@@ -63,7 +63,7 @@ const getSvgDimension = (
   const width = containerWidth;
   const height = containerHeight ? containerHeight : containerWidth;
   let minDichotomyRadius = minRadius;
-  let maxDichotomyRadius = Math.min(width, height) * 2;
+  let maxDichotomyRadius = Math.min(width, height) / 2;
   const rectangleArea = (width * height) / 2;
   let maxRadius = (minDichotomyRadius + maxDichotomyRadius) / 2;
   let circlesArea = getTotalCirclesArea(
@@ -73,7 +73,8 @@ const getSvgDimension = (
     LogarithmicFactor,
     minRadius
   );
-  while (Math.abs(circlesArea - rectangleArea) > 0.1) {
+  let iterations = 0;
+  while ((Math.abs(circlesArea - rectangleArea) > 0.1) & (iterations < 50)) {
     if (circlesArea - rectangleArea > 0) {
       maxDichotomyRadius = maxRadius;
       maxRadius = (minDichotomyRadius + maxDichotomyRadius) / 2;
@@ -88,6 +89,7 @@ const getSvgDimension = (
       LogarithmicFactor,
       minRadius
     );
+    iterations = iterations + 1;
   }
   return { width, height, maxRadius };
 };
@@ -112,21 +114,21 @@ const getTotalCirclesArea = (
   );
 };
 
-const dataSorter = (data, isScoreGraph) => {
-  let acc = -1;
+const dataSorter = (data, isScoreGraph, sizeScale) => {
+  let acc = 0;
   if (isScoreGraph) {
     return data
       .sort((a, b) => scoreComparison(a, b))
       .map((d) => {
-        acc += 1;
-        return { ...d, index: acc };
+        acc += sizeScale(d.value);
+        return { ...d, totalPreviousRadius: acc };
       });
   }
   return data
     .sort((a, b) => b.value - a.value)
     .map((d) => {
-      acc += 1;
-      return { ...d, index: acc };
+      acc += sizeScale(d.value);
+      return { ...d, totalPreviousRadius: acc };
     });
 };
 

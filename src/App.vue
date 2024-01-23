@@ -355,7 +355,7 @@ const props = (d) => {
     maxRadius: 0,
     minRadius: 0,
     height: 250,
-    isScoreGraph: true,
+    isScoreGraph: false,
     highScoreColor: "#4CAF50",
     mediumScoreColor: "#FFD700",
     lowScoreColor: "#FF6347",
