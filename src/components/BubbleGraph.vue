@@ -45,19 +45,22 @@ export default {
 
   methods: {
     renderGraph() {
-      const { data, width, height, size, numberOfColumns } =
-        utils.getGraphParameters(this.bubbleGraphProps, this.$refs.container);
-      // numberOfColumns is not use for the moment
-      numberOfColumns;
+      const { data, width, height, size } = utils.getGraphParameters(
+        this.bubbleGraphProps,
+        this.$refs.container
+      );
+
       const graphName =
         "#my_dataviz" + this.bubbleGraphProps.graphName.replaceAll(" ", "_");
 
-      // append the svg object to the body of the page
+      //Remove everything from the graph
       let graph = d3.select(graphName);
       graph.selectAll("*").remove();
+
+      // Append the SVG object to the body of the page
       let svg = graph.append("svg").attr("width", width).attr("height", height);
 
-      // Initialize the circle: all located at the center of the svg area
+      // Initialize the circle: all located at the center of the SVG area
       let node = svg.append("g").selectAll("circle").data(data).enter();
 
       const colorScale = utils.getColorScale(
@@ -73,17 +76,17 @@ export default {
         .attr("r", (d) => size(d.value))
         .attr("cx", width / 2)
         .attr("cy", height / 2)
-        .style("fill", (d) => {
-          return utils.getCircleColor(
+        .style("fill", (d) =>
+          utils.getCircleColor(
             d.score,
             colorScale,
             this.bubbleGraphProps.isScoreGraph
-          );
-        })
+          )
+        )
         .style("fill-opacity", 1)
         .call(
           d3
-            .drag() // call specific function when circle is dragged
+            .drag()
             .on("start", dragstarted)
             .on("drag", dragged)
             .on("end", dragended)
@@ -101,14 +104,7 @@ export default {
 
       utils.addTooltip(globalContainer, graphName, bubble);
 
-      // Features of the forces applied to the nodes:
-      const spaceRepartition = this.bubbleGraphProps.isScoreGraph
-        ? d3
-            .scaleLinear()
-            .domain([0, data[data.length - 1].index])
-            .range([0, height])
-        : d3.scalePow().exponent(0.6).domain([0, height]).range([0, height]);
-      spaceRepartition;
+      // Features of the forces applied to the nodes
       var simulation = d3
         .forceSimulation()
         .force(
@@ -123,51 +119,44 @@ export default {
           d3
             .forceY()
             .strength(0.5)
-            .y((d) => {
-              return (d.totalPreviousRadius - size(d.value) / 2) * 0.8;
-            })
+            .y((d) => (d.totalPreviousRadius - size(d.value) / 2) * 0.8)
         )
-        .force("charge", d3.forceManyBody().strength(0.1)) // Nodes are attracted one each other
+        .force("charge", d3.forceManyBody().strength(0.1))
         .force(
           "collide",
           d3
             .forceCollide()
             .strength(1)
-            .radius((d) => {
-              return size(d.value);
-            })
+            .radius((d) => size(d.value))
             .iterations(1)
-        ); // Force that avoids circle overlapping
+        );
 
-      // Apply these forces to the nodes and update their positions.
-      // Once the force algorithm is happy with positions ('alpha' scale * 1000000 is low enough), simulations will stop.
+      //Run the simulation within the svg border
       simulation.nodes(data).on("tick", () => {
         bubble
-          .attr("cx", (d) => {
-            return (d.x = Math.max(
-              size(d.value),
-              Math.min(width - size(d.value), d.x)
-            ));
-          })
-          .attr("cy", (d) => {
-            return (d.y = Math.max(
-              size(d.value),
-              Math.min(height - size(d.value), d.y)
-            ));
-          });
+          .attr(
+            "cx",
+            (d) =>
+              (d.x = Math.max(
+                size(d.value),
+                Math.min(width - size(d.value), d.x)
+              ))
+          )
+          .attr(
+            "cy",
+            (d) =>
+              (d.y = Math.max(
+                size(d.value),
+                Math.min(height - size(d.value), d.y)
+              ))
+          );
         bubbleText
-          .attr("x", (d) => {
-            return (d.x = Math.max(
-              size(d.value),
-              Math.min(width - size(d.value), d.x)
-            ));
-          })
-          .attr("y", (d) => {
-            return (d.y = Math.max(
-              size(d.value),
-              Math.min(height - size(d.value), d.y)
-            ));
-          });
+          .attr("x", (d) =>
+            Math.max(size(d.value), Math.min(width - size(d.value), d.x))
+          )
+          .attr("y", (d) =>
+            Math.max(size(d.value), Math.min(height - size(d.value), d.y))
+          );
       });
 
       // What happens when a circle is dragged?
@@ -176,10 +165,12 @@ export default {
         d.fx = d.x;
         d.fy = d.y;
       }
+
       function dragged(d) {
         d.fx = d3.event.x;
         d.fy = d3.event.y;
       }
+
       function dragended(d) {
         if (!d3.event.active) simulation.alphaTarget(0.3);
         d.fx = null;
