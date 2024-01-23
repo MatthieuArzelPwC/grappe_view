@@ -7,7 +7,8 @@ export const addCircles = (
   data,
   sizeScale,
   simulation,
-  colors
+  colors,
+  isScoreGraph
 ) => {
   return node
     .append("circle")
@@ -16,11 +17,7 @@ export const addCircles = (
     .attr("cx", width / 2)
     .attr("cy", height / 2)
     .style("fill", (d) =>
-      getCircleColor(
-        d.score,
-        getColorScale(data, colors),
-        this.bubbleGraphProps.isScoreGraph
-      )
+      getCircleColor(d.score, getColorScale(data, colors), isScoreGraph)
     )
     .style("fill-opacity", 1)
     .call(
@@ -76,7 +73,7 @@ export const addBubbleText = (node, sizeScale, width, height, textColor) => {
     .style("font-family", "Helvetica Neue")
     .style("font-size", (d) => `${getFontSize(d.value, sizeScale)}pt`)
     .style("fill", textColor)
-    .each((d) => {
+    .each(function (d) {
       svgTextEllipsis(this, sizeScale(d.value) * 2);
     });
 };

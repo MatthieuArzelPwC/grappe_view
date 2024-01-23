@@ -77,7 +77,8 @@ export default {
           high: this.bubbleGraphProps.highScoreColor,
           medium: this.bubbleGraphProps.mediumScoreColor,
           low: this.bubbleGraphProps.lowScoreColor,
-        }
+        },
+        this.bubbleGraphProps.isScoreGraph
       );
 
       let bubbleText = d3Utils.addBubbleText(
