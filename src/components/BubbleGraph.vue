@@ -54,11 +54,9 @@ export default {
         "#my_dataviz" + this.bubbleGraphProps.graphName.replaceAll(" ", "_");
 
       // append the svg object to the body of the page
-      var svg = d3
-        .select(graphName)
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height);
+      let graph = d3.select(graphName);
+      graph.selectAll("*").remove();
+      let svg = graph.append("svg").attr("width", width).attr("height", height);
 
       // Initialize the circle: all located at the center of the svg area
       let node = svg.append("g").selectAll("circle").data(data).enter();
