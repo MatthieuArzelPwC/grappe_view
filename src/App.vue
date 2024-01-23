@@ -364,15 +364,17 @@ const props = (d) => {
     textColor: "#000000",
   };
 };
-const props1 = props(data1);
+// const props1 = props(data1);
 const props2 = props(data2);
 const props3 = props(data3);
 const props4 = props(data4);
 const props5 = props(data5);
 const props6 = props(data6);
+const props1 = ref(props(data1));
 const acc = ref(0);
 const render = () => {
-  acc.value += 1;
+  // acc.value += 1;
+  props1.value = props(data2);
 };
 </script>
 

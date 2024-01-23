@@ -133,6 +133,13 @@ export default {
       },
       bindable: true,
     },
+    id: {
+      label: {
+        en: "id of the graph",
+      },
+      type: "OnOff",
+      bindable: true,
+    },
     data: {
       label: {
         en: "Data",

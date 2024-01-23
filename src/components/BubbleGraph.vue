@@ -35,9 +35,10 @@ export default {
     return { graphId };
   },
   watch: {
-    $bubbleGraphProps: {
-      handler: function () {
+    bubbleGraphProps: {
+      handler: function (value) {
         this.renderGraph();
+        console.log("reload", value);
       },
       deep: true,
     },
@@ -104,7 +105,6 @@ export default {
       utils.addTooltip(globalContainer, graphName, bubble);
 
       // Features of the forces applied to the nodes:
-      console.log(size(data[0].label));
       const spaceRepartition = this.bubbleGraphProps.isScoreGraph
         ? d3
             .scaleLinear()
