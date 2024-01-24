@@ -21,6 +21,7 @@ Before release, you can check build error by running `npm run build --name=my-el
 To add this component to weweb you must give it a "graph name" to make it work properly. Note that this name must be unique.
 
 The data should be an array of object with four attributes : label (the name display on the bubble), value (size of the bubble), score (only needed for score graph, define the order of the bubbles), tooltip (what is shown when hovering). Examples of data set :
+```json
   [
   {
   "label": "SARL John Doe",
@@ -71,3 +72,4 @@ The data should be an array of object with four attributes : label (the name dis
   "tooltip" : "Name : Le 2 \n Value : 9 \n (customized tooltip)"
   }
   ]
+```
