@@ -15,3 +15,7 @@ To serve locally for weweb , run `npm run serve --port=[PORT]` and then go to We
 ## Build
 
 Before release, you can check build error by running `npm run build --name=my-element`
+
+## Adding to weweb
+
+To add this component to weweb you must give it a "graph name" to make it work properly. Note that this name must be unique.

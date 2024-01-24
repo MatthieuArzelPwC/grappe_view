@@ -5,7 +5,10 @@ export const getGraphParameters = (graphProps, container) => {
 
   const numberOfColumns = graphProps.numberOfColumns;
 
-  const minRadius = graphProps.minRadius === 0 ? 5 : graphProps.minRadius;
+  const minRadius =
+    !graphProps.minRadius || graphProps.minRadius === 0
+      ? 5
+      : graphProps.minRadius;
 
   const { width, height, maxRadius } = getSvgDimension(
     data,
