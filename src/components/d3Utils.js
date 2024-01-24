@@ -128,7 +128,10 @@ export const addTooltip = (globalContainer, graphName, node) => {
     .style("white-space", "pre-line");
 
   node
-    .on("mouseover", () => {
+    .on("mouseover", (event, d) => {
+      if (!d.tooltip || d.tooltip === "") {
+        return tooltip;
+      }
       return tooltip.style("visibility", "visible");
     })
     .on("mousemove", (event, d) => {

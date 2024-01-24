@@ -76,11 +76,6 @@ export default {
               .scaleLinear()
               .domain([0, data[data.length - 1].totalPreviousRadius])
               .range([0, data[data.length - 1].totalPreviousRadius * 0.5]);
-      console.log("max rad", data[data.length - 1].totalPreviousRadius);
-      console.log(
-        "max scale",
-        spaceScale(data[data.length - 1].totalPreviousRadius)
-      );
 
       // Features of the forces applied to the nodes
       let simulation = d3
