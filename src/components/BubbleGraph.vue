@@ -43,7 +43,9 @@ export default {
       deep: true,
     },
   },
-
+  unmounted() {
+    this.$refs.container.removeEventListener("resize", this.renderGraph);
+  },
   methods: {
     renderGraph() {
       const {
@@ -167,6 +169,8 @@ export default {
     },
   },
   mounted() {
+    this.$refs.container.addEventListener("resize", this.renderGraph);
+
     this.renderGraph();
   },
 };
