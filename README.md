@@ -21,53 +21,53 @@ Before release, you can check build error by running `npm run build --name=my-el
 To add this component to weweb you must give it a "graph name" to make it work properly. Note that this name must be unique.
 
 The data should be an array of object with four attributes : label (the name display on the bubble), value (size of the bubble), score (only needed for score graph, define the order of the bubbles), tooltip (what is shown when hovering). Examples of data set :
-[
-{
-"label": "SARL John Doe",
-"value": 6,
-"score": 4,
-"tooltip" : "Name : SARL John Doe \n Value : 6 \n (customized tooltip)"
-},
-{
-"label": "Bruno SA",
-"value": 7,
-"score": 100,
-"tooltip" : "Name : Bruno SA \n Value : 7 \n (customized tooltip)"
-},
-{
-"label": "Julian GMBH",
-"value": 9,
-"score": 55,
-"tooltip" : "Name : Julian GMBH \n Value : 9 \n (customized tooltip)"
-},
-{
-"label": "Paul LTD",
-"value": 8,
-"score": 32,
-"tooltip" : "Name : Paul LTD \n Value : 8 \n (customized tooltip)"
-},
-{
-"label": "BV",
-"value": 10,
-"score": 90,
-"tooltip" : "Name : BV \n Value : 10 \n (customized tooltip)"
-},
-{
-"label": "Marco BV",
-"value": 7,
-"score": 78,
-"tooltip" : "Name : Marco BV \n Value : 7 \n (customized tooltip)"
-},
-{
-"label": "Le 1",
-"value": 8,
-"score": 14,
-"tooltip" : "Name : Le 1 \n Value : 8 \n (customized tooltip)"
-},
-{
-"label": "Le 2",
-"value": 9,
-"score": 62,
-"tooltip" : "Name : Le 2 \n Value : 9 \n (customized tooltip)"
-}
-]
+  [
+  {
+  "label": "SARL John Doe",
+  "value": 6,
+  "score": 4,
+  "tooltip" : "Name : SARL John Doe \n Value : 6 \n (customized tooltip)"
+  },
+  {
+  "label": "Bruno SA",
+  "value": 7,
+  "score": 100,
+  "tooltip" : "Name : Bruno SA \n Value : 7 \n (customized tooltip)"
+  },
+  {
+  "label": "Julian GMBH",
+  "value": 9,
+  "score": 55,
+  "tooltip" : "Name : Julian GMBH \n Value : 9 \n (customized tooltip)"
+  },
+  {
+  "label": "Paul LTD",
+  "value": 8,
+  "score": 32,
+  "tooltip" : "Name : Paul LTD \n Value : 8 \n (customized tooltip)"
+  },
+  {
+  "label": "BV",
+  "value": 10,
+  "score": 90,
+  "tooltip" : "Name : BV \n Value : 10 \n (customized tooltip)"
+  },
+  {
+  "label": "Marco BV",
+  "value": 7,
+  "score": 78,
+  "tooltip" : "Name : Marco BV \n Value : 7 \n (customized tooltip)"
+  },
+  {
+  "label": "Le 1",
+  "value": 8,
+  "score": 14,
+  "tooltip" : "Name : Le 1 \n Value : 8 \n (customized tooltip)"
+  },
+  {
+  "label": "Le 2",
+  "value": 9,
+  "score": 62,
+  "tooltip" : "Name : Le 2 \n Value : 9 \n (customized tooltip)"
+  }
+  ]
