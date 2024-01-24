@@ -44,7 +44,7 @@ export default {
     },
   },
   unmounted() {
-    this.$refs.container.removeEventListener("resize", this.renderGraph);
+    window.removeEventListener("resize", this.renderGraph);
   },
   methods: {
     renderGraph() {
@@ -169,7 +169,7 @@ export default {
     },
   },
   mounted() {
-    this.$refs.container.addEventListener("resize", this.renderGraph);
+    window.addEventListener("resize", this.renderGraph);
 
     this.renderGraph();
   },
