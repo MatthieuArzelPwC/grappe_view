@@ -7,10 +7,52 @@ export default {
   properties: {
     graphName: {
       label: {
-        en: "Graph name (it is required for the graph to work properly and it should be different from other graph)",
+        en: "Graph name (should be instantiated)",
       },
       type: "Text",
       required: true,
+      bindable: true,
+    },
+    data: {
+      label: {
+        en: "Data",
+      },
+      type: "Array",
+      options: {
+        item: {
+          type: "Object",
+          label: {
+            en: "item",
+          },
+          options: {
+            text: {
+              type: "Text",
+              label: {
+                en: "text",
+              },
+            },
+            value: {
+              type: "Number",
+              label: {
+                en: "value",
+              },
+            },
+            score: {
+              type: "Number",
+              label: {
+                en: "score",
+              },
+            },
+            tooltip: {
+              type: "Number",
+              label: {
+                en: "tooltip",
+              },
+            },
+          },
+        },
+      },
+      defaultValue: [],
       bindable: true,
     },
     isScoreGraph: {
@@ -19,6 +61,46 @@ export default {
       },
       type: "OnOff",
       defaultValue: false,
+      bindable: true,
+    },
+    highScoreColor: {
+      label: {
+        en: "Color of the bubble with the highest score",
+      },
+      type: "Color",
+      options: {
+        defaultValue: "#4CAF50",
+      },
+      bindable: true,
+    },
+    mediumScoreColor: {
+      label: {
+        en: "Color of the bubble with the medium score",
+      },
+      type: "Color",
+      options: {
+        defaultValue: "#FFD700",
+      },
+      bindable: true,
+    },
+    lowScoreColor: {
+      label: {
+        en: "Color of the bubble with the lowest score",
+      },
+      type: "Color",
+      options: {
+        defaultValue: "#FF6347",
+      },
+      bindable: true,
+    },
+    textColor: {
+      label: {
+        en: "Color of the text of the bubble",
+      },
+      type: "Color",
+      options: {
+        defaultValue: "#000000",
+      },
       bindable: true,
     },
     useLogarithmicScale: {
@@ -66,95 +148,6 @@ export default {
         step: 10,
         defaultValue: 0,
       },
-      bindable: true,
-    },
-    highScoreColor: {
-      label: {
-        en: "Color of the bubble with the highest score",
-      },
-      type: "Color",
-      options: {
-        defaultValue: "#4CAF50",
-      },
-      bindable: true,
-    },
-    mediumScoreColor: {
-      label: {
-        en: "Color of the bubble with the medium score",
-      },
-      type: "Color",
-      options: {
-        defaultValue: "#FFD700",
-      },
-      bindable: true,
-    },
-    lowScoreColor: {
-      label: {
-        en: "Color of the bubble with the lowest score",
-      },
-      type: "Color",
-      options: {
-        defaultValue: "#FF6347",
-      },
-      bindable: true,
-    },
-    textColor: {
-      label: {
-        en: "Color of the text of the bubble",
-      },
-      type: "Color",
-      options: {
-        defaultValue: "#000000",
-      },
-      bindable: true,
-    },
-    id: {
-      label: {
-        en: "id of the graph",
-      },
-      type: "uuid",
-      bindable: true,
-    },
-    data: {
-      label: {
-        en: "Data",
-      },
-      type: "Array",
-      options: {
-        item: {
-          type: "Object",
-          label: {
-            en: "item",
-          },
-          options: {
-            text: {
-              type: "Text",
-              label: {
-                en: "text",
-              },
-            },
-            value: {
-              type: "Number",
-              label: {
-                en: "value",
-              },
-            },
-            score: {
-              type: "Number",
-              label: {
-                en: "score",
-              },
-            },
-            tooltip: {
-              type: "Number",
-              label: {
-                en: "tooltip",
-              },
-            },
-          },
-        },
-      },
-      defaultValue: [],
       bindable: true,
     },
   },
