@@ -137,18 +137,5 @@ export default {
       },
       bindable: true,
     },
-    maxRadius: {
-      label: {
-        en: "Maximum bubble radius",
-      },
-      type: "Number",
-      options: {
-        min: 50,
-        max: 1000,
-        step: 10,
-        defaultValue: 0,
-      },
-      bindable: true,
-    },
   },
 };
