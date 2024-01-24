@@ -49,11 +49,16 @@ export const addCircles = (
 const getColorScale = (data, colors) => {
   const maxScore = Math.max(...data.map((x) => x.score));
   const minScore = Math.min(...data.map((x) => x.score));
+  const getColorOrDefault = (color, defaultColor) => color || defaultColor;
 
   const colorScale = d3
     .scaleLinear()
     .domain([minScore, (maxScore + minScore) / 2, maxScore])
-    .range([colors.low, colors.medium, colors.high]);
+    .range([
+      getColorOrDefault(colors.low, "#FF6347"),
+      getColorOrDefault(colors.medium, "#FFD700"),
+      getColorOrDefault(colors.high, "#4CAF50"),
+    ]);
   return colorScale;
 };
 
