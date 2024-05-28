@@ -113,14 +113,18 @@ export const addTooltip = (globalContainer, graphName, node) => {
     .append("div")
     .attr("pointer-events", "none")
     .style("position", "absolute")
+    .style("width", "250px")
     .style("visibility", "hidden")
     .style("border-radius", "5px")
-    .style("padding", "8px")
-    .style("background-color", "black")
-    .style("color", "white")
-    .style("opacity", "0.6")
+    .style("padding", "12px")
+    .style("background-color", "#252525")
+    .style("border-size", "1px")
+    .style("border-color", "#2B2E3B")
+    .style("color", "#EEEEEE")
+    .style("opacity", "1")
     .style("z-index", "10")
-    .style("font-size", "16pt");
+    .style("font-size", "14pt")
+    .style("font-weight", "300");
 
   const tooltipText = tooltip
     .append("div")
