@@ -77,7 +77,7 @@ export default {
     },
     showBorders: {
       label: {
-        en: 'Display borders on bubbles',
+        en: 'borders display',
       },
       type: 'OnOff',
       defaultValue: false,
@@ -85,7 +85,7 @@ export default {
     },
     borderWidth: {
       label: {
-        en: "Width of the bubble's border",
+        en: "border-width",
       },
       type: 'Number',
       options: {
@@ -98,7 +98,7 @@ export default {
     },
     highScoreColor: {
       label: {
-        en: 'Color of the bubble with the highest score',
+        en: 'background color high',
       },
       type: 'Color',
       options: {
@@ -108,7 +108,7 @@ export default {
     },
     highScoreBorderColor: {
       label: {
-        en: 'Border color of the bubble with the highest score',
+        en: 'border color high',
       },
       type: 'Color',
       options: {
@@ -118,7 +118,7 @@ export default {
     },
     mediumScoreColor: {
       label: {
-        en: 'Color of the bubble with the medium score',
+        en: 'background color med',
       },
       type: 'Color',
       options: {
@@ -128,7 +128,7 @@ export default {
     },
     mediumScoreBorderColor: {
       label: {
-        en: 'Border color of the bubble with the medium score',
+        en: 'border color med',
       },
       type: 'Color',
       options: {
@@ -138,7 +138,7 @@ export default {
     },
     lowScoreColor: {
       label: {
-        en: 'Color of the bubble with the lowest score',
+        en: 'background color low',
       },
       type: 'Color',
       options: {
@@ -148,7 +148,7 @@ export default {
     },
     lowScoreBorderColor: {
       label: {
-        en: 'Border color of the bubble with the lowest score',
+        en: 'border color low',
       },
       type: 'Color',
       options: {
@@ -158,7 +158,7 @@ export default {
     },
     textColor: {
       label: {
-        en: 'Color of the text of the bubble',
+        en: 'text color',
       },
       type: 'Color',
       options: {
@@ -169,7 +169,7 @@ export default {
     selectCalculusType: {
         type: "TextRadioGroup",
         label: {
-            en: "Select radius or area",
+            en: "radius or area",
         },
         options: {
             choices: [
@@ -180,7 +180,7 @@ export default {
     },
     useLogarithmicScale: {
       label: {
-        en: 'Display value on logarithmic scale',
+        en: 'logarithmic scale',
       },
       type: 'OnOff',
       defaultValue: false,
@@ -188,7 +188,7 @@ export default {
     },
     LogarithmicFactor: {
       label: {
-        en: 'Logarithmic factor',
+        en: 'logarithmic factor',
       },
       type: 'Number',
       options: {
@@ -201,7 +201,7 @@ export default {
     },
     minRadius: {
       label: {
-        en: 'Minimum bubble radius',
+        en: 'minimum bubble radius',
       },
       type: 'Number',
       options: {
