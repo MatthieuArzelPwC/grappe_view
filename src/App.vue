@@ -1,14 +1,24 @@
 <template>
   <div class="content">
-    <BubbleGraph :bubbleGraphProps="props2" />
     <BubbleGraph :bubbleGraphProps="props1" />
+    <BubbleGraph :bubbleGraphProps="props2" />
     <BubbleGraph :bubbleGraphProps="props3" />
     <BubbleGraph :bubbleGraphProps="props4" />
     <BubbleGraph :bubbleGraphProps="props5" />
     <BubbleGraph :bubbleGraphProps="props6" />
   </div>
 </template>
-
+<style>
+  .content{
+    display: flex;
+    flex-direction: row;
+  }
+  .content > .container {
+    max-width: 300px;
+    height: 300px;
+    position: relative;
+  }
+</style>
 <script>
 import BubbleGraph from "./components/BubbleGraph.vue";
 import { ref } from "vue";
@@ -22,12 +32,15 @@ export default {
 </script>
 
 <script setup>
-const data2 = [
+const data1 = [
   {
     label: "Iran",
-    value: 100,
+    value: 1000,
     score: 4,
     tooltip: "Iran",
+    
+    borderWidth: 15,
+    borderColor: "purple"
   },
   {
     label: "UK",
@@ -79,7 +92,7 @@ const data2 = [
   },
 ];
 
-const data1 = [
+const data2 = [
   {
     label: "Italie",
     value: 10,
@@ -194,6 +207,9 @@ const data1 = [
     label: "Liban",
     value: 9106,
     score: 6,
+
+    borderWidth: 15,
+    borderColor: 'pink'
   },
   {
     label: "Maroc",
@@ -201,7 +217,6 @@ const data1 = [
     score: 37,
   },
 ];
-
 const data3 = [
   {
     label: "Iran",
@@ -249,7 +264,6 @@ const data3 = [
     score: null,
   },
 ];
-
 const data4 = [
   {
     label: "Iran",
@@ -346,6 +360,7 @@ const data6 = [
     score: 62,
   },
 ];
+
 const acc = ref(0);
 const props = (d) => {
   acc.value += 1;
@@ -353,7 +368,7 @@ const props = (d) => {
     data: d.sort((a, b) => b.value - a.value),
     graphName: "graph" + acc.value,
     numberOfColumns: 1,
-    useLogarithmicScale: true,
+    useLogarithmicScale: false,
     LogarithmicFactor: 0.3,
     maxRadius: 0,
     minRadius: 0,
@@ -362,20 +377,21 @@ const props = (d) => {
     highScoreColor: "#4CAF50",
     mediumScoreColor: "#FFD700",
     lowScoreColor: "#FF6347",
+    showBorders: true,
+    // highScoreBorderColor: "PowderBlue",
+    // mediumScoreBorderColor: "DarkTurquoise",
+    // lowScoreBorderColor: "Navy",
+    borderWidth: 3,
     textColor: "#000000",
+    // selectCalculusType: 'area',
+    selectCalculusType: 'radius',
   };
 };
 const props1 = props(data1);
-const props2 = props(data2);
-const props3 = props(data3);
-const props4 = props(data4);
-const props5 = props(data5);
-const props6 = props(data6);
+// const props2 = props(data2);
+// const props3 = props(data3);
+// const props4 = props(data4);
+// const props5 = props(data5);
+// const props6 = props(data6);
 </script>
 
-<style lang="scss" scoped>
-.content {
-  width: 100px;
-  height: 800px;
-}
-</style>

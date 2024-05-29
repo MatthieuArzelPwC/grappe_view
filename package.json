@@ -2,10 +2,15 @@
   "name": "weweb-custom",
   "version": "8.2.5",
   "scripts": {
-    "build": "weweb build",
-    "serve": "weweb serve"
+    "build": "npm run build:weweb",
+    "serve:local": "vue-cli-service serve",
+    "build:weweb": "weweb build",
+    "serve": "npm run serve:weweb",
+    "build:local": "vue-cli-service build",
+    "serve:weweb": "weweb serve"
   },
   "dependencies": {
+    "color": "^4.2.3",
     "core-js": "^3.8.3",
     "d3": "7.8.5",
     "vue": "3.2.13"
@@ -13,10 +18,11 @@
   "devDependencies": {
     "@babel/core": "7.12.16",
     "@babel/eslint-parser": "7.12.16",
+    "@babel/preset-env": "^7.24.6",
     "@vue/cli-plugin-eslint": "5.0.0",
+    "@weweb/cli": "latest",
     "eslint": "7.32.0",
-    "eslint-plugin-vue": "8.0.3",
-    "@weweb/cli": "latest"
+    "eslint-plugin-vue": "8.0.3"
   },
   "eslintConfig": {
     "root": true,
@@ -28,7 +34,8 @@
       "eslint:recommended"
     ],
     "parserOptions": {
-      "parser": "@babel/eslint-parser"
+      "parser": "@babel/eslint-parser",
+      "requireConfigFile": true
     },
     "rules": {}
   }
