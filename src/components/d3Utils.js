@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import { getColor, getColorScale } from "../utils/colors";
 
 export const addCircles = (
   node,
@@ -8,25 +9,33 @@ export const addCircles = (
   sizeScale,
   simulation,
   colors,
-  isScoreGraph
+  borders,
+  isScoreGraph,
 ) => {
-  return node
+  const tmpNode = node
     .append("circle")
     .attr("class", "node")
-    .attr("r", (d) => sizeScale(d.value))
     .attr("cx", width / 2)
     .attr("cy", height / 2)
     .style("fill", (d) =>
-      getCircleColor(d.score, getColorScale(data, colors), isScoreGraph)
+      getColor(d.score, getColorScale(data, colors), isScoreGraph)
     )
-    .style("fill-opacity", 1)
-    .call(
-      d3
-        .drag()
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended)
-    );
+    .style("fill-opacity", 1);
+  if (borders.enabled) {
+    tmpNode
+      .attr("r", (d) => {
+        const tmp = sizeScale(d.value) - (d.borderWidth || borders.width || 0) / 2
+        console.log('r', tmp)
+        return tmp
+      })
+      .style("stroke", (d) =>
+        d.borderColor || getColor(d.score, getColorScale(data, borders.colors, "score"), isScoreGraph)
+      )
+      .style("stroke-width", d => d.borderWidth || borders.width)
+      .style('stroke-opacity', 1)
+  } else {
+    tmpNode.attr("r", (d) => sizeScale(d.value));
+  }
   // What happens when a circle is dragged?
   function dragstarted(d) {
     if (!d3.event.active) simulation.alphaTarget(0.3).restart();
@@ -44,27 +53,16 @@ export const addCircles = (
     d.fx = null;
     d.fy = null;
   }
+  return tmpNode
+    .call(
+      d3
+        .drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended)
+    );
 };
 
-const getColorScale = (data, colors) => {
-  const maxScore = Math.max(...data.map((x) => x.score));
-  const minScore = Math.min(...data.map((x) => x.score));
-  const getColorOrDefault = (color, defaultColor) => color || defaultColor;
-
-  const colorScale = d3
-    .scaleLinear()
-    .domain([minScore, (maxScore + minScore) / 2, maxScore])
-    .range([
-      getColorOrDefault(colors.low, "#FF6347"),
-      getColorOrDefault(colors.medium, "#FFD700"),
-      getColorOrDefault(colors.high, "#4CAF50"),
-    ]);
-  return colorScale;
-};
-
-const getCircleColor = (score, colorScale, isScoreGraph) => {
-  return isScoreGraph & (score !== null) ? colorScale(score) : "#D1D1D1";
-};
 
 export const addBubbleText = (node, sizeScale, width, height, textColor) => {
   return node
@@ -104,7 +102,7 @@ const svgTextEllipsis = (textNode, width) => {
 
 const getFontSize = (dataValue, sizeScale) => {
   const fontSize = sizeScale(dataValue) / 5;
-  return fontSize > 4 ? fontSize : 0;
+  return Math.min(fontSize > 4 ? fontSize : 0, 16);
 };
 
 export const addTooltip = (globalContainer, graphName, node) => {

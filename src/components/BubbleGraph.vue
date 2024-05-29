@@ -2,6 +2,7 @@
 import * as d3 from "d3";
 import { getGraphParameters } from "./init.js";
 import * as d3Utils from "./d3Utils.js";
+import { darkenColor } from '../utils/colors.js';
 
 export default {
   name: "BubbleGraph",
@@ -57,6 +58,16 @@ export default {
 
       const graphName =
         "#my_dataviz" + this.bubbleGraphProps.graphName.replaceAll(" ", "_");
+
+      const borders = {
+        enabled: this.bubbleGraphProps.showBorders,
+        width: this.bubbleGraphProps.borderWidth,
+        colors: {
+          high: this.bubbleGraphProps.highScoreBorderColor ?? darkenColor(this.bubbleGraphProps.highScoreColor, 30),
+          medium: this.bubbleGraphProps.mediumScoreBorderColor ?? darkenColor(this.bubbleGraphProps.mediumScoreColor, 30),
+          low: this.bubbleGraphProps.lowScoreBorderColor ?? darkenColor(this.bubbleGraphProps.lowScoreColor, 30),
+        },
+      }
 
       //Remove everything from the graph
       let graph = d3.select(graphName);
@@ -120,6 +131,7 @@ export default {
           medium: this.bubbleGraphProps.mediumScoreColor,
           low: this.bubbleGraphProps.lowScoreColor,
         },
+        borders,
         this.bubbleGraphProps.isScoreGraph
       );
 
