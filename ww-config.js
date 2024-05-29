@@ -87,6 +87,7 @@ export default {
       label: {
         en: "border-width",
       },
+      section: 'settings',
       type: 'Number',
       options: {
         min: 0,
@@ -100,6 +101,7 @@ export default {
       label: {
         en: 'background color high',
       },
+      section: 'settings',
       type: 'Color',
       options: {
         defaultValue: '#4CAF50',
@@ -110,6 +112,7 @@ export default {
       label: {
         en: 'border color high',
       },
+      section: 'settings',
       type: 'Color',
       options: {
         defaultValue: '#24783a',
@@ -120,6 +123,7 @@ export default {
       label: {
         en: 'background color med',
       },
+      section: 'settings',
       type: 'Color',
       options: {
         defaultValue: '#FFD700',
@@ -130,6 +134,7 @@ export default {
       label: {
         en: 'border color med',
       },
+      section: 'settings',
       type: 'Color',
       options: {
         defaultValue: '#356cc4',
@@ -140,6 +145,7 @@ export default {
       label: {
         en: 'background color low',
       },
+      section: 'settings',
       type: 'Color',
       options: {
         defaultValue: '#FF6347',
@@ -150,6 +156,7 @@ export default {
       label: {
         en: 'border color low',
       },
+      section: 'settings',
       type: 'Color',
       options: {
         defaultValue: '#cf9700',
@@ -160,6 +167,7 @@ export default {
       label: {
         en: 'text color',
       },
+      section: 'settings',
       type: 'Color',
       options: {
         defaultValue: '#000000',
