@@ -35,7 +35,7 @@ export default {
 const data1 = [
   {
     label: "Iran",
-    value: 1000,
+    value: 100,
     score: 4,
     tooltip: "Iran",
     
@@ -368,7 +368,7 @@ const props = (d) => {
     data: d.sort((a, b) => b.value - a.value),
     graphName: "graph" + acc.value,
     numberOfColumns: 1,
-    useLogarithmicScale: false,
+    useLogarithmicScale: true,
     LogarithmicFactor: 0.3,
     maxRadius: 0,
     minRadius: 0,
@@ -384,14 +384,13 @@ const props = (d) => {
     borderWidth: 3,
     textColor: "#000000",
     // selectCalculusType: 'area',
-    selectCalculusType: 'radius',
   };
 };
 const props1 = props(data1);
-// const props2 = props(data2);
-// const props3 = props(data3);
-// const props4 = props(data4);
-// const props5 = props(data5);
-// const props6 = props(data6);
+const props2 = props(data2);
+const props3 = props(data3);
+const props4 = props(data4);
+const props5 = props(data5);
+const props6 = props(data6);
 </script>
 
