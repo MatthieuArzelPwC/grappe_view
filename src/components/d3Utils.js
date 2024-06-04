@@ -112,6 +112,8 @@ export const addTooltip = (globalContainer, graphName, node) => {
     .attr("pointer-events", "none")
     .style("position", "absolute")
     .style("visibility", "hidden")
+    .style("min-width", "300px")
+    .style("max-width", "300px")
     .style("border-radius", "5px")
     .style("padding", "12px")
     .style("background-color", "#252525")
@@ -126,7 +128,7 @@ export const addTooltip = (globalContainer, graphName, node) => {
   const tooltipText = tooltip
     .append("div")
     .style("margin", "0px")
-    .style("white-space", "pre-line");
+    .style("white-space", "nowrap");
 
   node
     .on("mouseover", (event, d) => {
