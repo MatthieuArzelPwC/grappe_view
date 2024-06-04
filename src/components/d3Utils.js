@@ -128,7 +128,7 @@ export const addTooltip = (globalContainer, graphName, node) => {
   const tooltipText = tooltip
     .append("div")
     .style("margin", "0px")
-    .style("white-space", "nowrap");
+    .style("white-space", "pre-line");
 
   node
     .on("mouseover", (event, d) => {
