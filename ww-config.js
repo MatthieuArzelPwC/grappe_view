@@ -174,39 +174,39 @@ export default {
       },
       bindable: true,
     },
-    selectCalculusType: {
-        type: "TextRadioGroup",
-        label: {
-            en: "radius or area",
-        },
-        options: {
-            choices: [
-                { value: "radius", default: true, title: { en: "Radius" } },
-                { value: "area", title: { en: "Area" } }
-            ]
-        }
-    },
-    useLogarithmicScale: {
-      label: {
-        en: 'logarithmic scale',
-      },
-      type: 'OnOff',
-      defaultValue: false,
-      bindable: true,
-    },
-    LogarithmicFactor: {
-      label: {
-        en: 'logarithmic factor',
-      },
-      type: 'Number',
-      options: {
-        min: 0,
-        max: 1,
-        step: 0.1,
-        defaultValue: 0.5,
-      },
-      bindable: true,
-    },
+    // selectCalculusType: {
+    //     type: "TextRadioGroup",
+    //     label: {
+    //         en: "radius or area",
+    //     },
+    //     options: {
+    //         choices: [
+    //             { value: "radius", default: true, title: { en: "Radius" } },
+    //             { value: "area", title: { en: "Area" } }
+    //         ]
+    //     }
+    // },
+    // useLogarithmicScale: {
+    //   label: {
+    //     en: 'logarithmic scale',
+    //   },
+    //   type: 'OnOff',
+    //   defaultValue: false,
+    //   bindable: true,
+    // },
+    // LogarithmicFactor: {
+    //   label: {
+    //     en: 'logarithmic factor',
+    //   },
+    //   type: 'Number',
+    //   options: {
+    //     min: 0,
+    //     max: 1,
+    //     step: 0.1,
+    //     defaultValue: 0.5,
+    //   },
+    //   bindable: true,
+    // },
     minRadius: {
       label: {
         en: 'minimum bubble radius',
